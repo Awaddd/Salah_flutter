@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salah_app/core/utils/enums.dart';
 
 extension ShowSnackBar on BuildContext {
   static TextStyle errorStyle = const TextStyle(color: Color(0xFFFF461C));
@@ -36,4 +37,10 @@ extension StringCasingExtension on String {
       .split(' ')
       .map((str) => str.capitalize())
       .join(' ');
+}
+
+extension ParsePrayerToString on Prayers {
+  String getPrayerName() {
+    return toString().split('.').last;
+  }
 }
