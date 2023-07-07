@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.3.6
+  flutter_animate: ^4.2.0
 
 dev_dependencies:
   flutter_test:

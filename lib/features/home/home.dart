@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:salah_app/core/state/state.dart';
 import 'package:salah_app/core/utils/constants.dart';
@@ -60,16 +61,7 @@ class _HomeState extends ConsumerState<Home> {
           height: height * 0.5,
           child: Stack(
             children: [
-              AnimatedCrossFade(
-                crossFadeState: cycle == Cycle.day
-                    ? CrossFadeState.showFirst
-                    : CrossFadeState.showSecond,
-                duration: const Duration(milliseconds: 1000),
-                firstCurve: Curves.easeOut,
-                secondCurve: Curves.easeIn,
-                firstChild: const DayImage(),
-                secondChild: const NightImage(),
-              ),
+              if (cycle == Cycle.day) const DayImage() else const NightImage(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -128,12 +120,15 @@ class DayImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Image(
-      width: double.infinity,
-      image: AssetImage('assets/day.jpg'),
-      fit: BoxFit.cover,
-      alignment: Alignment.bottomCenter,
-      gaplessPlayback: true,
+    return Animate(
+      effects: const [SaturateEffect(duration: Duration(milliseconds: 500))],
+      child: const Image(
+        width: double.infinity,
+        image: AssetImage('assets/day.jpg'),
+        fit: BoxFit.cover,
+        alignment: Alignment.bottomCenter,
+        gaplessPlayback: true,
+      ),
     );
   }
 }
@@ -145,12 +140,15 @@ class NightImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Image(
-      width: double.infinity,
-      image: AssetImage('assets/night.jpg'),
-      fit: BoxFit.cover,
-      alignment: Alignment.topCenter,
-      gaplessPlayback: true,
+    return Animate(
+      effects: const [SaturateEffect(duration: Duration(milliseconds: 500))],
+      child: const Image(
+        width: double.infinity,
+        image: AssetImage('assets/night.jpg'),
+        fit: BoxFit.cover,
+        alignment: Alignment.topCenter,
+        gaplessPlayback: true,
+      ),
     );
   }
 }
