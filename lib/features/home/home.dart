@@ -14,6 +14,14 @@ class Home extends ConsumerStatefulWidget {
 
 class _HomeState extends ConsumerState<Home> {
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    precacheImage(const AssetImage('assets/day.jpg'), context);
+    precacheImage(const AssetImage('assets/night.jpg'), context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
 
@@ -47,23 +55,21 @@ class _HomeState extends ConsumerState<Home> {
       children: [
         SizedBox(height: height),
 
-        Container(
+        SizedBox(
           width: double.infinity,
           height: height * 0.5,
-          padding: const EdgeInsets.all(md),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                cycle == Cycle.night ? 'assets/night.jpg' : 'assets/day.jpg',
-              ),
-              fit: BoxFit.cover,
-              alignment: cycle == Cycle.night
-                  ? Alignment.topCenter
-                  : Alignment.bottomCenter,
-            ),
-          ),
-          child: Column(
+          child: Stack(
             children: [
+              AnimatedCrossFade(
+                crossFadeState: cycle == Cycle.day
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+                duration: const Duration(milliseconds: 1000),
+                firstCurve: Curves.easeOut,
+                secondCurve: Curves.easeIn,
+                firstChild: const DayImage(),
+                secondChild: const NightImage(),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -111,6 +117,40 @@ class _HomeState extends ConsumerState<Home> {
           ),
         )
       ],
+    );
+  }
+}
+
+class DayImage extends StatelessWidget {
+  const DayImage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Image(
+      width: double.infinity,
+      image: AssetImage('assets/day.jpg'),
+      fit: BoxFit.cover,
+      alignment: Alignment.bottomCenter,
+      gaplessPlayback: true,
+    );
+  }
+}
+
+class NightImage extends StatelessWidget {
+  const NightImage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Image(
+      width: double.infinity,
+      image: AssetImage('assets/night.jpg'),
+      fit: BoxFit.cover,
+      alignment: Alignment.topCenter,
+      gaplessPlayback: true,
     );
   }
 }
