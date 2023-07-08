@@ -38,9 +38,3 @@ extension StringCasingExtension on String {
       .map((str) => str.capitalize())
       .join(' ');
 }
-
-extension ParsePrayerToString on Prayer {
-  String getPrayerName() {
-    return toString().split('.').last;
-  }
-}

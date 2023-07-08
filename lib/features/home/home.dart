@@ -50,7 +50,7 @@ class _HomeState extends ConsumerState<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    currentPrayer.getPrayerName().capitalize(),
+                    currentPrayer.name.capitalize(),
                     style: textTheme.titleLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
