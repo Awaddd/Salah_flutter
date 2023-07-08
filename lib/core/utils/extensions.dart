@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:salah_app/core/utils/enums.dart';
 
 extension ShowSnackBar on BuildContext {
   static TextStyle errorStyle = const TextStyle(color: Color(0xFFFF461C));
