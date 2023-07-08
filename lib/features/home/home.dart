@@ -46,27 +46,30 @@ class _HomeState extends ConsumerState<Home> {
           child: Stack(
             children: [
               if (cycle == Cycle.day) const DayImage() else const NightImage(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    currentPrayer.name.capitalize(),
-                    style: textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
+              Padding(
+                padding: const EdgeInsets.all(md),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      currentPrayer.name.capitalize(),
+                      style: textTheme.titleLarge?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
 
-                  //
-                  IconButton(
-                    onPressed: () {
-                      ref.read(currentPrayerProvider.notifier).state =
-                          Prayer.asr;
-                    },
-                    icon: const Icon(Icons.menu),
-                    color: Colors.white,
-                  )
-                ],
+                    //
+                    IconButton(
+                      onPressed: () {
+                        ref.read(currentPrayerProvider.notifier).state =
+                            Prayer.asr;
+                      },
+                      icon: const Icon(Icons.menu),
+                      color: Colors.white,
+                    )
+                  ],
+                ),
               )
             ],
           ),
