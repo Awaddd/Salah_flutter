@@ -39,7 +39,7 @@ extension StringCasingExtension on String {
       .join(' ');
 }
 
-extension ParsePrayerToString on Prayers {
+extension ParsePrayerToString on Prayer {
   String getPrayerName() {
     return toString().split('.').last;
   }

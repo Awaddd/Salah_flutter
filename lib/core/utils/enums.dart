@@ -1,3 +1,3 @@
 enum Cycle { day, night }
 
-enum Prayers { fajr, sunrise, dhuhr, asr, maghrib, isha }
+enum Prayer { fajr, sunrise, dhuhr, asr, maghrib, isha }

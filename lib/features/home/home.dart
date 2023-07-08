@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:salah_app/core/controllers/application_controller.dart';
 import 'package:salah_app/core/state/state.dart';
 import 'package:salah_app/core/utils/constants.dart';
 import 'package:salah_app/core/utils/enums.dart';
@@ -33,24 +34,7 @@ class _HomeState extends ConsumerState<Home> {
     final cycle = ref.watch(cycleProvider);
     final currentPrayer = ref.watch(currentPrayerProvider);
 
-    ref.listen(currentPrayerProvider, (previous, current) {
-      final cycleNotifier = ref.read(cycleProvider.notifier);
-
-      switch (current) {
-        case Prayers.fajr:
-          cycleNotifier.state = Cycle.night;
-        case Prayers.sunrise:
-          cycleNotifier.state = Cycle.day;
-        case Prayers.dhuhr:
-          cycleNotifier.state = Cycle.day;
-        case Prayers.asr:
-          cycleNotifier.state = Cycle.day;
-        case Prayers.maghrib:
-          cycleNotifier.state = Cycle.night;
-        case Prayers.isha:
-          cycleNotifier.state = Cycle.night;
-      }
-    });
+    ApplicationController.registerCurrentPrayerListener(ref);
 
     return Stack(
       children: [
@@ -77,7 +61,7 @@ class _HomeState extends ConsumerState<Home> {
                   IconButton(
                     onPressed: () {
                       ref.read(currentPrayerProvider.notifier).state =
-                          Prayers.asr;
+                          Prayer.asr;
                     },
                     icon: const Icon(Icons.menu),
                     color: Colors.white,
